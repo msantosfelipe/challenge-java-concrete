@@ -7,14 +7,17 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.challenge.javachallenge.dto.LoginDto;
 import br.com.challenge.javachallenge.dto.UserDto;
 import br.com.challenge.javachallenge.model.User;
 import br.com.challenge.javachallenge.repository.UserRepository;
 import br.com.challenge.javachallenge.service.exception.DuplicateUserException;
+import br.com.challenge.javachallenge.service.exception.InvalidPasswordException;
+import br.com.challenge.javachallenge.service.exception.UserDoesNotExistException;
 import br.com.challenge.javachallenge.util.PasswordUtil;
 
 @Service
-public class RegisterServiceImpl implements RegisterService {
+public class UserServiceImpl implements UserService {
 
 	@Autowired
 	UserRepository userRepository;
@@ -25,8 +28,6 @@ public class RegisterServiceImpl implements RegisterService {
 	@Override
 	@Transactional
 	public User register(UserDto userDto) {
-
-		// TODO buscar por email já existente
 
 		verifyDuplicateUser(userDto);
 
@@ -43,9 +44,24 @@ public class RegisterServiceImpl implements RegisterService {
 		return userCreated;
 	}
 
+	@Override
+	public User login(LoginDto loginDto) {
+		User user = userRepository.findByEmail(loginDto.getEmail());
+
+		if (user == null) {
+			throw new UserDoesNotExistException();
+		} else {
+			if (!user.getPassword().equals(loginDto.getPassword())) {
+				throw new InvalidPasswordException();
+			}
+		}
+
+		return user;
+	}
+
 	private void verifyDuplicateUser(UserDto userDto) {
 		User user = userRepository.findByEmail(userDto.getEmail());
-		
+
 		if (user != null) {
 			throw new DuplicateUserException();
 		}

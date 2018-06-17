@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.challenge.javachallenge.dto.UserDto;
 import br.com.challenge.javachallenge.model.User;
 import br.com.challenge.javachallenge.repository.UserRepository;
-import br.com.challenge.javachallenge.service.RegisterService;
+import br.com.challenge.javachallenge.service.UserService;
 
 @RestController
 @RequestMapping("/api/v1/register")
@@ -25,7 +25,7 @@ import br.com.challenge.javachallenge.service.RegisterService;
 public class RegisterController {
 
 	@Autowired
-	private RegisterService userService;
+	private UserService userService;
 	
 	@Autowired
 	private UserRepository userRepository;

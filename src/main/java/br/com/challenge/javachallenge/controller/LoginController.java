@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.challenge.javachallenge.dto.LoginDto;
 import br.com.challenge.javachallenge.model.User;
-import br.com.challenge.javachallenge.service.LoginService;
+import br.com.challenge.javachallenge.service.UserService;
 
 @RestController
 @RequestMapping("/api/v1/login")
@@ -20,12 +20,12 @@ import br.com.challenge.javachallenge.service.LoginService;
 public class LoginController {
 
 	@Autowired
-	private LoginService loginService;
+	private UserService userService;
 	
 	@PostMapping
 	public ResponseEntity<User> login(
 			@RequestBody LoginDto loginDto, HttpServletResponse response) {
-		User userCreated = loginService.login(loginDto);
+		User userCreated = userService.login(loginDto);
 		return ResponseEntity.ok(userCreated);
 	}
 
