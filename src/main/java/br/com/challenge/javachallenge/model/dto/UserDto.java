@@ -1,6 +1,8 @@
-package br.com.challenge.javachallenge.dto;
+package br.com.challenge.javachallenge.model.dto;
 
 import java.util.List;
+
+import javax.validation.constraints.NotEmpty;
 
 import br.com.challenge.javachallenge.model.Phone;
 
@@ -14,6 +16,7 @@ public class UserDto {
 
 	private List<Phone> phones;
 
+	@NotEmpty(message="The name must not be null")
 	public String getName() {
 		return name;
 	}
@@ -22,6 +25,7 @@ public class UserDto {
 		this.name = name;
 	}
 
+	@NotEmpty(message="The email must not be null")
 	public String getEmail() {
 		return email;
 	}
@@ -30,6 +34,7 @@ public class UserDto {
 		this.email = email;
 	}
 
+	@NotEmpty(message="The password must not be null")
 	public String getPassword() {
 		return password;
 	}

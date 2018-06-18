@@ -7,14 +7,13 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.challenge.javachallenge.dto.LoginDto;
-import br.com.challenge.javachallenge.dto.UserDto;
 import br.com.challenge.javachallenge.model.User;
+import br.com.challenge.javachallenge.model.dto.LoginDto;
+import br.com.challenge.javachallenge.model.dto.UserDto;
 import br.com.challenge.javachallenge.repository.UserRepository;
 import br.com.challenge.javachallenge.service.exception.DuplicateUserException;
 import br.com.challenge.javachallenge.service.exception.InvalidPasswordException;
 import br.com.challenge.javachallenge.service.exception.UserDoesNotExistException;
-import br.com.challenge.javachallenge.util.PasswordUtil;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -34,9 +33,9 @@ public class UserServiceImpl implements UserService {
 		User user = new User();
 		user.setName(userDto.getName());
 		user.setEmail(userDto.getEmail());
-		user.setPassword(PasswordUtil.generateBCrypt(userDto.getPassword()));
+//		user.setPassword(PasswordUtil.generateBCrypt(userDto.getPassword()));
+		user.setPassword((userDto.getPassword()));
 		user.setCreated(LocalDateTime.now());
-
 		user.setPhones(phoneService.saveList(userDto.getPhones()));
 
 		User userCreated = userRepository.save(user);

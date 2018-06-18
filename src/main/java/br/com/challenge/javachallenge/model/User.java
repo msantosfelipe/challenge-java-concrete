@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import br.com.challenge.javachallenge.model.enums.ProfileEnum;
+
 @Entity
 public class User {
 	@Id
@@ -26,8 +28,15 @@ public class User {
 
 	private LocalDateTime last_login;
 
+	private String token;
+
 	@OneToMany
 	private List<Phone> phones;
+
+	private ProfileEnum profileEnum;
+
+	public User() {
+	}
 
 	public String getName() {
 		return name;
@@ -87,5 +96,21 @@ public class User {
 
 	public void setModified(LocalDateTime modified) {
 		this.modified = modified;
+	}
+
+	public ProfileEnum getProfileEnum() {
+		return profileEnum;
+	}
+
+	public void setProfileEnum(ProfileEnum profileEnum) {
+		this.profileEnum = profileEnum;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 }

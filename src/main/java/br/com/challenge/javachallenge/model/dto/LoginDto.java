@@ -1,4 +1,6 @@
-package br.com.challenge.javachallenge.dto;
+package br.com.challenge.javachallenge.model.dto;
+
+import javax.validation.constraints.NotEmpty;
 
 public class LoginDto {
 
@@ -6,6 +8,7 @@ public class LoginDto {
 
 	private String password;
 
+	@NotEmpty(message = "The email must not be null")
 	public String getEmail() {
 		return email;
 	}
@@ -14,6 +17,7 @@ public class LoginDto {
 		this.email = email;
 	}
 
+	@NotEmpty(message = "The password must not be null")
 	public String getPassword() {
 		return password;
 	}
@@ -22,5 +26,4 @@ public class LoginDto {
 		this.password = password;
 	}
 
-	
 }

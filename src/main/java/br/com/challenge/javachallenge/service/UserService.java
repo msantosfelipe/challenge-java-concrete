@@ -1,8 +1,8 @@
 package br.com.challenge.javachallenge.service;
 
-import br.com.challenge.javachallenge.dto.LoginDto;
-import br.com.challenge.javachallenge.dto.UserDto;
 import br.com.challenge.javachallenge.model.User;
+import br.com.challenge.javachallenge.model.dto.LoginDto;
+import br.com.challenge.javachallenge.model.dto.UserDto;
 
 public interface UserService {
 
