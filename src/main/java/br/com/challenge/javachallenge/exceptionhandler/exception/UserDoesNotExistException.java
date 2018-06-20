@@ -1,4 +1,4 @@
-package br.com.challenge.javachallenge.service.exception;
+package br.com.challenge.javachallenge.exceptionhandler.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

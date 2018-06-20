@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import br.com.challenge.javachallenge.service.exception.DuplicateUserException;
-import br.com.challenge.javachallenge.service.exception.InvalidPasswordException;
-import br.com.challenge.javachallenge.service.exception.UserDoesNotExistException;
+import br.com.challenge.javachallenge.exceptionhandler.exception.DuplicateUserException;
+import br.com.challenge.javachallenge.exceptionhandler.exception.InvalidPasswordException;
+import br.com.challenge.javachallenge.exceptionhandler.exception.UserDoesNotExistException;
 
 public class ChallengeExceptionHandler extends ResponseEntityExceptionHandler {
 

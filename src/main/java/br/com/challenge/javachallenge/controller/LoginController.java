@@ -20,7 +20,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @Api(tags = "login")
-@RequestMapping("/api/v1/login")
+@RequestMapping(value = "/api/v1/login")
 @CrossOrigin(origins = "*")
 public class LoginController {
 
@@ -37,8 +37,8 @@ public class LoginController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		User userCreated = userService.login(loginDto);
-		response.setData(userCreated);
+		User user = userService.login(loginDto);
+		response.setData(user);
 		return ResponseEntity.ok(response);
 	}
 

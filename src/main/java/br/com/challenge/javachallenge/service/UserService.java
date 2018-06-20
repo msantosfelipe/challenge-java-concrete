@@ -10,4 +10,8 @@ public interface UserService {
 
 	User login(LoginDto loginDto);
 
+	User findByEmail(String email);
+	
+	User returnUser(Long id, String token);
+
 }

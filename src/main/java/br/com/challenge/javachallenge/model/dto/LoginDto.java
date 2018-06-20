@@ -1,5 +1,6 @@
 package br.com.challenge.javachallenge.model.dto;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 public class LoginDto {
@@ -9,6 +10,7 @@ public class LoginDto {
 	private String password;
 
 	@NotEmpty(message = "The email must not be null")
+	@Email(message = "Invalid email")
 	public String getEmail() {
 		return email;
 	}
