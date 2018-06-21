@@ -17,8 +17,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class JwtTokenUtil {
 
-	static final String CLAIM_KEY_USERNAME = "sub";
-	static final String CLAIM_KEY_EMAIL = "email";
+	static final String CLAIM_KEY_SUB = "sub";
+	static final String CLAIM_KEY_NAME = "name";
 	static final String CLAIM_KEY_CREATED = "created";
 
 	@Value("${jwt.secret}")
@@ -34,8 +34,8 @@ public class JwtTokenUtil {
 
 	public String obterToken(UserDto userDto) {
 		Map<String, Object> claims = new HashMap<>();
-		claims.put(CLAIM_KEY_USERNAME, userDto.getName());
-		claims.put(CLAIM_KEY_EMAIL, userDto.getEmail());
+		claims.put(CLAIM_KEY_NAME, userDto.getName());
+		claims.put(CLAIM_KEY_SUB, userDto.getEmail());
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 		String formatDateTime = LocalDateTime.now().format(formatter);
 		claims.put(CLAIM_KEY_CREATED, formatDateTime);
@@ -54,6 +54,19 @@ public class JwtTokenUtil {
 
 		return username;
 	}
+	
+//	public String getEmailFromToken(String token) {
+//		String email;
+//
+//		try {
+//			Claims claims = getClaimsFromToken(token);
+//			email = claims.get(CLAIM_KEY_EMAIL));
+//		} catch (Exception e) {
+//			email = null;
+//		}
+//
+//		return email;
+//	}
 
 	public Date getExpirationDateFromToken(String token) {
 		Date expiration;

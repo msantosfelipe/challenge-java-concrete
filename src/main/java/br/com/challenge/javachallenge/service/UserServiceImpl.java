@@ -30,14 +30,8 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private PhoneService phoneService;
 
-	// @Autowired
-	// private AuthenticationManager authenticationManager;
-
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
-
-//	@Autowired
-//	private UserDetailsService userDetailsService;
 
 	@Override
 	@Transactional
@@ -52,16 +46,16 @@ public class UserServiceImpl implements UserService {
 		user.setCreated(LocalDateTime.now());
 		user.setPhones(phoneService.saveList(userDto.getPhones()));
 
-		user.setToken(generateToken(userDto));
-		User userCreated = userRepository.save(user);
+		user.setToken(jwtTokenUtil.obterToken(userDto));
 
+		User userCreated = userRepository.save(user);
 		return userCreated;
 	}
 
 	@Override
 	@Transactional
 	public User login(LoginDto loginDto) {
-		User user = findByEmail(loginDto.getEmail());
+		User user = userRepository.findByEmail(loginDto.getEmail());
 
 		if (user == null) {
 			throw new UserDoesNotExistException();
@@ -72,6 +66,7 @@ public class UserServiceImpl implements UserService {
 		}
 
 		user.setLast_login(LocalDateTime.now());
+		user.setModified(LocalDateTime.now());
 		userRepository.save(user);
 
 		return user;
@@ -79,8 +74,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User findByEmail(String email) {
-		return userRepository.findByEmail(email);
+	public Optional<User> findByEmail(String email) {
+		return Optional.ofNullable(userRepository.findByEmail(email));
 	}
 
 	@Override
@@ -105,27 +100,17 @@ public class UserServiceImpl implements UserService {
 
 	private boolean verifyInvalidLastLogin(User user) {
 		Long lastLogin = user.getLast_login().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-		Long milliseconds = System.currentTimeMillis() - lastLogin;
+		Long timeSinceLastLogin = System.currentTimeMillis() - lastLogin;
 
-		return milliseconds >= 1800000;
+		return timeSinceLastLogin >= 1800000;
 	}
 
 	private void verifyDuplicateUser(UserDto userDto) {
-		User user = findByEmail(userDto.getEmail());
+		User user = userRepository.findByEmail(userDto.getEmail());
 
 		if (user != null) {
 			throw new DuplicateUserException();
 		}
-	}
-
-	private String generateToken(UserDto userDto) {
-		// Authentication authentication = authenticationManager
-		// .authenticate(new UsernamePasswordAuthenticationToken(userDto.getEmail(),
-		// userDto.getPassword()));
-		// SecurityContextHolder.getContext().setAuthentication(authentication);
-		// UserDetails userDetails =
-		// userDetailsService.loadUserByUsername(userDto.getEmail());
-		return jwtTokenUtil.obterToken(userDto);
 	}
 
 }

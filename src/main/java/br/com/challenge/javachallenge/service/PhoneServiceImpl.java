@@ -19,12 +19,16 @@ public class PhoneServiceImpl implements PhoneService {
 
 	@Override
 	@Transactional
-	public List<Phone> saveList(List<Phone> phone) {
+	public List<Phone> saveList(List<Phone> phones) {
 		List<Phone> phonesSaved = new ArrayList<Phone>();
-		for (Phone p : phone) {
-			Phone phoneSaved = phoneRepository.save(p);
-			phonesSaved.add(phoneSaved);
+
+		if (phones != null) {
+			for (Phone p : phones) {
+				Phone phoneSaved = phoneRepository.save(p);
+				phonesSaved.add(phoneSaved);
+			}
 		}
+		
 		return phonesSaved;
 	}
 

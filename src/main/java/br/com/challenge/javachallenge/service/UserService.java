@@ -1,17 +1,19 @@
 package br.com.challenge.javachallenge.service;
 
+import java.util.Optional;
+
 import br.com.challenge.javachallenge.model.User;
 import br.com.challenge.javachallenge.model.dto.LoginDto;
 import br.com.challenge.javachallenge.model.dto.UserDto;
 
 public interface UserService {
 
-	User register(UserDto userDto);
+	public User register(UserDto userDto);
 
-	User login(LoginDto loginDto);
+	public User login(LoginDto loginDto);
 
-	User findByEmail(String email);
+	public Optional<User> findByEmail(String email);
 	
-	User returnUser(Long id, String token);
+	public User returnUser(Long id, String token);
 
 }
