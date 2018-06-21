@@ -45,7 +45,7 @@ public class UserServiceTest {
 		MockitoAnnotations.initMocks(this);
 	}
 
-	// @Test
+	@Test
 	public void register() {
 		String mensagemErro = "";
 
@@ -64,7 +64,7 @@ public class UserServiceTest {
 		Assert.assertEquals(mensagemErro, "");
 	}
 
-	// @Test
+	@Test
 	public void registerDuplicateUser() {
 		String mensagemErro = "";
 
@@ -85,7 +85,7 @@ public class UserServiceTest {
 		Assert.assertEquals(mensagemErro, "E-mail já existente");
 	}
 
-	// @Test
+	@Test
 	public void login() {
 		String mensagemErro = "";
 
@@ -104,7 +104,7 @@ public class UserServiceTest {
 		Assert.assertEquals(mensagemErro, "");
 	}
 
-	// @Test
+	@Test
 	public void loginUserDoesNotExist() {
 		String mensagemErro = "";
 
