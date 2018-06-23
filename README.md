@@ -13,4 +13,4 @@ POST: https://stark-reef-22672.herokuapp.com/api/v1/register
 POST: https://stark-reef-22672.herokuapp.com/api/v1/login
 
 (Privado - Enviar token no header "Authorization: Bearer {token}")
-GET: https://stark-reef-22672.herokuapp.com/api/v1//{id}
+GET: https://stark-reef-22672.herokuapp.com/api/v1/profile/{id}
