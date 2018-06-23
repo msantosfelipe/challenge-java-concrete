@@ -17,6 +17,7 @@ import br.com.challenge.javachallenge.exceptionhandler.exception.UserDoesNotExis
 import br.com.challenge.javachallenge.model.User;
 import br.com.challenge.javachallenge.model.dto.LoginDto;
 import br.com.challenge.javachallenge.model.dto.UserDto;
+import br.com.challenge.javachallenge.model.enums.ProfileEnum;
 import br.com.challenge.javachallenge.repository.UserRepository;
 import br.com.challenge.javachallenge.security.utils.JwtTokenUtil;
 import br.com.challenge.javachallenge.security.utils.PasswordUtil;
@@ -45,6 +46,7 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(PasswordUtil.generateBCrypt(userDto.getPassword()));
 		user.setCreated(LocalDateTime.now());
 		user.setPhones(phoneService.saveList(userDto.getPhones()));
+		user.setProfileEnum(ProfileEnum.ROLE_ADMIN);
 
 		user.setToken(jwtTokenUtil.obterToken(userDto));
 
@@ -61,7 +63,7 @@ public class UserServiceImpl implements UserService {
 			throw new UserDoesNotExistException();
 		}
 
-		if (!user.getPassword().equals(loginDto.getPassword())) {
+		if (!PasswordUtil.validPassword(loginDto.getPassword(), user.getPassword())) {
 			throw new InvalidPasswordException();
 		}
 
